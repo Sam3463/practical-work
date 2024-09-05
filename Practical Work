@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora con Registro</title>
+</head>
+<body>
+    <h1>Registro de Usuario</h1>
+    
+    <form id="registroForm">
+        <label for="username">Nombre de Usuario:</label>
+        <input type="text" id="username" placeholder="Nombre de Usuario" required>
+        <br><br>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <br><br>
+
+        <button type="submit">Registrarse</button>
+    </form>
+
+    <div id="calculadora" style="display: none;">
+        <h1>Calculadora Básica</h1>
+        
+        <label for="valor1">Ingrese el primer valor:</label>
+        <input type="number" id="valor1" placeholder="Valor 1">
+        <br><br>
+        
+        <label for="valor2">Ingrese el segundo valor:</label>
+        <input type="number" id="valor2" placeholder="Valor 2">
+        <br><br>
+        
+        <button onclick="calcular('sumar')">Sumar</button>
+        <button onclick="calcular('restar')">Restar</button>
+        <button onclick="calcular('multiplicar')">Multiplicar</button>
+        <button onclick="calcular('dividir')">Dividir</button>
+        <br><br>
+        
+        <p id="resultado">Resultado: </p>
+    </div>
+
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simulación de registro exitoso
+            alert(`Bienvenido, ${username}!`);
+
+            // Mostrar la calculadora y ocultar el formulario de registro
+            document.getElementById('registroForm').style.display = 'none';
+            document.getElementById('calculadora').style.display = 'block';
+        });
+
+        function calcular(operacion) {
+            const valor1 = parseFloat(document.getElementById('valor1').value);
+            const valor2 = parseFloat(document.getElementById('valor2').value);
+            let resultado;
+            let bandera = true;
+
+            switch (operacion) {
+                case 'sumar':
+                    resultado = valor1 + valor2;
+                    break;
+                case 'restar':
+                    resultado = valor1 - valor2;
+                    break;
+                case 'multiplicar':
+                    resultado = valor1 * valor2;
+                    break;
+                case 'dividir':
+                    if (valor2 === 0) {
+                        alert("Error: División por cero");
+                        bandera = false;
+                    } else {
+                        resultado = valor1 / valor2;
+                    }
+                    break;
+                default:
+                    alert("Operación no válida");
+                    bandera = false;
+            }
+
+            if (bandera) {
+                document.getElementById('resultado').textContent = "Resultado: " + resultado;
+            }
+        }
+    </script>
+</body>
+</html>
